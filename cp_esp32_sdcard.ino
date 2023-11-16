@@ -3,18 +3,22 @@
 #include <SPI.h>
 #include <SD.h>
 
+#define CPIOT_SS_PIN 5
+#define CPIOT_MOSI_PIN 23
+#define CPIOT_SCK_PIN 18
+#define CPIOT_MISO_PIN 19
 
 File myFile;
 
 
-void setup(){
+void setup() {
   Serial.begin(115200);
   Serial.print("Initializing SD card...");
   SPIClass spi = SPIClass(VSPI);
-  spi.begin(18 /* SCK */, 19 /* MISO */, 23 /* MOSI */, 4 /* SS */);
-//  SD.begin(4 /* SS */, spi, 80000000);
+  spi.begin(CPIOT_SCK_PIN /* SCK */, CPIOT_MISO_PIN /* MISO */, CPIOT_MOSI_PIN /* MOSI */, CPIOT_SS_PIN /* SS */);
+  //  SD.begin(4 /* SS */, spi, 80000000);
 
-   if (!SD.begin(4)) {
+  if (!SD.begin(4)) {
     Serial.println("initialization failed!");
     return;
   }
@@ -53,7 +57,6 @@ void setup(){
     Serial.println("error opening test.txt");
   }
 }
-  
-void loop(){
-  
+
+void loop() {
 }
